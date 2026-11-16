@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Letras e Bíblias e Variedades</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>tailwind.config={theme:{extend:{colors:{bo:'#F97316',boh:'#EA580C',bb:'#0284C7',bbd:'#0369A1',bbs:'#F0F9FF'}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{font-family:Inter,system-ui,sans-serif;background:#f8fafc;color:#1e293b}
+.chip{border:1px solid #bae6fd;background:#fff;padding:.55rem 1.1rem;border-radius:9999px;font-size:.85rem;font-weight:600;white-space:nowrap}
+.chip.on{border:2px solid #F97316;background:#FFEDD5;color:#C2410C}
+</style>
+</head>
+<body class="min-h-screen flex flex-col">
+<div class="bg-bo text-white text-xs sm:text-sm py-2 px-4 text-center font-semibold">🚚 Frete com desconto especial via transportadora para todo o Brasil! | Cupom <b>BIBLE10</b> = 10% off</div>
+
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-sm border-b border-sky-100">
+ <div class="max-w-7xl mx-auto px-4 flex items-center justify-between gap-4 py-2">
+  <a href="#" class="flex items-center gap-2 shrink-0">
+   <svg width="52" viewBox="330 150 560 650" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><g id="lbPagesLeft" fill="none" stroke="#1F4358" stroke-linejoin="round"><path d="M606 500 Q545 455 478 430 V690 Q545 725 608 768" stroke-width="10"/><path d="M464 456 H447 V714 Q525 752 608 776" stroke-width="9"/><path d="M446 484 H430 V738 Q515 776 608 786" stroke-width="9"/></g></defs><path d="M500 365 V284 A109 109 0 0 1 718 284 V365" fill="none" stroke="#1F4358" stroke-width="16"/><circle cx="500" cy="365" r="21" fill="#1F4358"/><circle cx="718" cy="365" r="21" fill="#1F4358"/><path d="M497 306 H388 L343 778 H600" fill="none" stroke="#1F4358" stroke-width="15"/><path d="M722 306 H832 L878 778 H640" fill="none" stroke="#1F4358" stroke-width="15"/><path d="M530 312 H692" fill="none" stroke="#1F4358" stroke-width="14"/><use href="#lbPagesLeft"/><use href="#lbPagesLeft" transform="translate(1224 0) scale(-1 1)"/><polygon points="508,482 608,482 608,575 508,575" fill="#3A8A99"/><polygon points="616,482 716,482 716,575 616,575" fill="#E8812F"/><polygon points="508,585 608,585 608,710 508,680" fill="#E8812F"/><polygon points="616,585 716,585 716,680 616,710" fill="#3A8A99"/><g fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="66" text-anchor="middle"><text x="558" y="552">L</text><text x="666" y="552">B</text><text x="558" y="660">L</text><text x="666" y="660">B</text></g></svg>
+   <span class="font-extrabold text-[#1F4358] leading-tight text-lg">Letras e bíblias</span>
+  </a>
+  <input id="q" oninput="S.q=this.value;draw()" placeholder="Buscar Bíblia, Harpa, Livro..." class="hidden md:block flex-1 max-w-md bg-bbs border border-sky-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-bo">
+  <nav class="hidden lg:flex gap-5 text-sm font-semibold text-slate-600"><a href="#catalogo">Catálogo</a><a href="#frete">Frete</a><a href="#sobre">Sobre</a></nav>
+  <button onclick="cartToggle()" class="relative p-3 rounded-full bg-sky-100 text-xl">🛒<span id="badge" class="absolute -top-1 -right-1 bg-bo text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span></button>
+ </div>
+ <div class="md:hidden px-4 pb-3"><input oninput="S.q=this.value;draw()" placeholder="Buscar..." class="w-full bg-bbs border border-sky-200 rounded-full px-4 py-2 text-sm focus:outline-none"></div>
+</header>
+
+<main class="flex-grow">
+ <section class="bg-gradient-to-br from-sky-50 via-sky-100 to-amber-50 py-14 text-center border-b border-sky-100">
+  <div class="max-w-3xl mx-auto px-4 space-y-5">
+   <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900">Encontre a <span class="text-bb">Bíblia Perfeita</span> para a sua jornada</h1>
+   <p class="text-slate-600">Bíblias tradicionais, de estudo, capa jovem, letra gigante, livros e harpas cristãs. Entregamos em todo o Brasil.</p>
+   <a href="#catalogo" class="inline-block px-8 py-4 rounded-xl bg-bo hover:bg-boh text-white font-bold shadow-lg">📖 Ver catálogo</a>
+  </div>
+ </section>
+
+ <section class="bg-white border-b border-sky-100 py-6"><div id="chips" class="max-w-7xl mx-auto px-4 flex gap-3 overflow-x-auto pb-2"></div></section>
+
+ <section id="catalogo" class="py-12 max-w-7xl mx-auto px-4 w-full">
+  <h2 class="text-3xl font-extrabold mb-6">Nosso acervo</h2>
+  <div id="adminBar" class="hidden mb-6 p-4 bg-white border-2 border-dashed border-bo rounded-2xl flex flex-wrap items-center gap-2">
+   <span class="text-sm font-bold mr-auto">🏪 Modo lojista</span>
+   <div id="quick" class="flex flex-wrap gap-2"></div>
+   <button onclick="exportP()" class="px-3 py-2 bg-slate-100 rounded-xl text-xs font-bold">⬇ Backup</button>
+   <label class="px-3 py-2 bg-slate-100 rounded-xl text-xs font-bold cursor-pointer">⬆ Importar<input type="file" accept=".json" class="hidden" onchange="importP(this)"></label>
+   <button onclick="resetP()" class="px-3 py-2 bg-slate-100 rounded-xl text-xs font-bold">↺ Padrão</button>
+  </div>
+  <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+ </section>
+
+ <section id="frete" class="py-12 bg-sky-50 border-y border-sky-100">
+  <div class="max-w-xl mx-auto px-4 bg-white p-6 rounded-3xl shadow-lg">
+   <h3 class="text-xl font-bold mb-3">🚚 Simular frete</h3>
+   <div class="flex gap-3"><input id="cep" maxlength="9" placeholder="00000-000" class="flex-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm"><button onclick="document.getElementById('fr').classList.remove('hidden')" class="bg-bb text-white font-bold px-6 rounded-xl text-sm">Calcular</button></div>
+   <div id="fr" class="hidden mt-4 p-3 bg-slate-50 rounded-xl border flex justify-between text-sm font-bold"><span>Jadlog Package</span><span class="text-bo">R$ 14,90</span></div>
+  </div>
+ </section>
+
+ <section id="sobre" class="py-12 max-w-5xl mx-auto px-4 grid md:grid-cols-3 gap-6 text-center">
+  <div class="p-6 bg-sky-50 rounded-3xl border border-sky-100"><div class="text-3xl">💳</div><h3 class="font-bold mt-2">Parcelamento em até 6x</h3><p class="text-sm text-slate-600 mt-1">Sem taxa de entrega em Araguaína - Tocantins.</p></div>
+  <div class="p-6 bg-orange-50 rounded-3xl border border-orange-100"><div class="text-3xl">👁</div><h3 class="font-bold mt-2">Alta leitura</h3><p class="text-sm text-slate-600 mt-1">Letra hipergigante e confortável para estudo e devoção.</p></div>
+  <div class="p-6 bg-sky-50 rounded-3xl border border-sky-100"><div class="text-3xl">🛡</div><h3 class="font-bold mt-2">Embalagem protegida</h3><p class="text-sm text-slate-600 mt-1">Garantia contra amassados no transporte.</p></div>
+ </section>
+</main>
+
+<footer class="bg-slate-900 text-slate-300 py-10 text-center text-xs border-t-4 border-bo space-y-2">
+ <p class="font-bold text-white text-lg">Letras<span class="text-bo">&amp;</span>Bíblias</p>
+ <p>Livraria cristã: Bíblias de estudo, letra gigante e harpas cristãs.</p>
+ <p>📱 (63) 99200-0251 · 📍 Araguaína - Tocantins</p>
+ <p>© 2026 Letras e Bíblias e Variedades</p>
+ <button id="adminLink" onclick="adminToggle()" class="text-slate-500 hover:text-bo">🔒 Área do lojista</button>
+</footer>
+
+<div id="pm" class="fixed inset-0 z-[60] hidden bg-slate-900/60 overflow-y-auto"><div class="min-h-full flex items-center justify-center p-4">
+ <form onsubmit="saveP(event)" class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden">
+  <div class="p-4 bg-bb text-white flex justify-between"><h3 id="pt" class="font-bold">Adicionar produto</h3><button type="button" onclick="closeF()" class="text-2xl leading-none">&times;</button></div>
+  <div class="p-5 space-y-4">
+   <div><label class="block text-xs font-bold mb-1">Fotos do produto (3)</label><div id="slots" class="grid grid-cols-3 gap-3"></div></div>
+   <div><label class="block text-xs font-bold mb-1">Nome *</label><input id="fn" required maxlength="90" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm"></div>
+   <div class="grid grid-cols-2 gap-3">
+    <div><label class="block text-xs font-bold mb-1">Preço (R$) *</label><input id="fp" type="number" step="0.01" min="0" required class="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm"></div>
+    <div><label class="block text-xs font-bold mb-1">Preço antigo</label><input id="fo" type="number" step="0.01" min="0" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm"></div>
+   </div>
+   <div class="grid grid-cols-2 gap-3">
+    <div><label class="block text-xs font-bold mb-1">Categoria</label><select id="fc" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm bg-white"></select></div>
+    <div><label class="block text-xs font-bold mb-1">Etiqueta</label><input id="ft" maxlength="20" placeholder="Ex: Novidade" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm"></div>
+   </div>
+   <div><label class="block text-xs font-bold mb-1">Descrição</label><textarea id="fd" rows="2" maxlength="200" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm"></textarea></div>
+  </div>
+  <div class="p-4 bg-slate-50 border-t flex gap-3"><button type="button" onclick="closeF()" class="flex-1 py-3 bg-white border rounded-xl text-sm font-bold">Cancelar</button><button class="flex-1 py-3 bg-bo text-white rounded-xl text-sm font-bold">💾 Salvar</button></div>
+ </form></div></div>
+
+<div id="cm" class="fixed inset-0 z-50 hidden bg-slate-900/60"><div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col">
+ <div class="p-4 bg-bb text-white flex justify-between"><h3 class="font-bold">Meu carrinho</h3><button onclick="cartToggle()" class="text-2xl leading-none">&times;</button></div>
+ <div id="ci" class="flex-grow p-4 overflow-y-auto space-y-3"></div>
+ <div class="p-4 bg-slate-50 border-t space-y-3">
+  <div class="flex justify-between font-extrabold"><span>Total</span><span id="ct" class="text-bo text-xl">R$ 0,00</span></div>
+  <button onclick="checkout()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl">📲 Finalizar pedido via WhatsApp</button>
+ </div></div></div>
+
+<script>
+const CATS={tradicional:['Bíblia Tradicional','📖'],estudo:['Bíblia de Estudo','🎓'],jovem:['Capa Jovem','🧑'],gigante:['Letra Gigante','🔍'],luxo:['Capas Luxo','👑'],livros:['Livros','📚'],harpas:['Harpas Cristãs','🎵'],infantil:['Infantil','🧸']};
+const PIN="1234",KEY="lb_products_v2";
+const ph=(e,c)=>"data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><rect width="600" height="600" fill="${c}"/><text x="300" y="340" font-size="150" text-anchor="middle">${e}</text></svg>`);
+const PH=ph('📷','#E2E8F0');
+const mk=(id,name,cat,price,old,tag,desc,c)=>({id,name,category:cat,price,oldPrice:old,tag,desc,images:[ph(CATS[cat][1],c)]});
+const DEF=[
+ mk(1,"Bíblia Sagrada Tradicional","tradicional",69.9,89.9,"Clássica","Capa dura, texto completo, leitura tranquila.","#DBEAFE"),
+ mk(2,"Bíblia de Estudo Leão de Judá","estudo",139.9,179.9,"Mais vendida","Notas explicativas e mapas coloridos.","#FEE2E2"),
+ mk(3,"Bíblia Capa Jovem","jovem",79.9,99.9,"Jovem","Capas modernas e coloridas.","#FCE7F3"),
+ mk(4,"Bíblia Letra Hipergigante","gigante",89.9,110,"Alta leitura","Fonte expandida, sem cansar os olhos.","#FEF3C7"),
+ mk(5,"Bíblia Capa Luxo + Nome","luxo",189.9,220,"Personalizada","Gravação do nome em letras douradas.","#E7E5E4"),
+ mk(6,"Livro Cristão","livros",39.9,null,"Novo","Edifique sua fé com boa leitura.","#DCFCE7"),
+ mk(7,"Harpa Cristã","harpas",49.9,null,"Louvor","Hinos para o culto e devocional.","#EDE9FE"),
+ mk(8,"Bíblia Ilustrada Infantil","infantil",69.9,89.9,"Kids","Linguagem simples e ilustrações.","#CFFAFE")];
+const S={cat:'all',q:'',admin:false,edit:null};
+let P=load(),cart=[],FI=['','',''],idx={};
+function load(){try{const a=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(a))return a}catch(e){}return DEF.map(p=>({...p}))}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(P));return true}catch(e){alert('Armazenamento cheio. Use links de imagem ou apague produtos.');return false}}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const brl=v=>'R$ '+Number(v).toFixed(2).replace('.',',');
+const imgsOf=p=>{const a=(p.images||[]).filter(Boolean);return a.length?a:[p.image||PH]};
+const $=id=>document.getElementById(id);
+
+function chips(){
+ $('chips').innerHTML=[['all',['Todas','▦']],...Object.entries(CATS)].map(([k,v])=>`<button onclick="S.cat='${k}';chips();draw()" class="chip ${S.cat===k?'on':''}">${v[1]} ${v[0]}</button>`).join('');
+ $('quick').innerHTML=Object.entries(CATS).map(([k,v])=>`<button onclick="openF(null,'${k}')" class="px-3 py-2 bg-sky-50 hover:bg-sky-100 text-bbd rounded-xl text-xs font-bold">+ ${v[0]}</button>`).join('');
+ $('fc').innerHTML=Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('');
+}
+function draw(){
+ const t=S.q.trim().toLowerCase();
+ const list=P.filter(p=>(S.cat==='all'||p.category===S.cat)&&(!t||(p.name+' '+(p.desc||'')).toLowerCase().includes(t)));
+ $('grid').innerHTML=list.length?list.map(p=>{
+  const im=imgsOf(p),old=p.oldPrice&&+p.oldPrice>+p.price;
+  return `<div class="bg-white rounded-3xl overflow-hidden shadow-md border border-sky-100 flex flex-col">
+  <div class="relative h-64 bg-slate-100"><img id="pi${p.id}" src="${esc(im[0])}" alt="${esc(p.name)}" onerror="this.onerror=null;this.src=PH" class="w-full h-full object-cover">
+  ${p.tag?`<span class="absolute top-3 left-3 bg-bo text-white text-[11px] font-extrabold px-3 py-1 rounded-full">${esc(p.tag)}</span>`:''}
+  ${S.admin?`<div class="absolute top-3 right-3 flex gap-2"><button onclick="openF(${p.id})" class="w-9 h-9 rounded-full bg-white shadow">✏️</button><button onclick="delP(${p.id})" class="w-9 h-9 rounded-full bg-white shadow">🗑</button></div>`:''}
+  ${im.length>1?`<button onclick="slide(${p.id},-1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 shadow">‹</button><button onclick="slide(${p.id},1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 shadow">›</button>
+  <div id="dt${p.id}" class="absolute bottom-2 inset-x-0 flex justify-center gap-1.5">${im.map((_,k)=>`<span class="w-2 h-2 rounded-full ${k?'bg-white/80':'bg-bo'}"></span>`).join('')}</div>`:''}
+  </div>
+  <div class="p-5 flex flex-col flex-grow"><p class="text-[11px] font-bold text-bb uppercase">${CATS[p.category]?CATS[p.category][0]:'Variedades'}</p>
+  <h3 class="font-bold text-lg leading-snug">${esc(p.name)}</h3><p class="text-xs text-slate-500 mt-1">${esc(p.desc)}</p>
+  <div class="mt-auto pt-4 flex items-center justify-between"><div class="leading-tight">${old?`<div class="text-xs text-slate-400 line-through">${brl(p.oldPrice)}</div>`:''}<div class="text-xl font-black">${brl(p.price)}</div></div>
+  <button onclick="add(${p.id})" class="px-4 py-2.5 bg-bo hover:bg-boh text-white rounded-xl text-xs font-bold">🛒 Comprar</button></div></div></div>`}).join(''):'<p class="col-span-full text-center text-slate-500 py-12">Nenhum produto encontrado.</p>';
+}
+function slide(id,d){const p=P.find(x=>x.id===id),im=imgsOf(p);idx[id]=((idx[id]||0)+d+im.length)%im.length;$('pi'+id).src=im[idx[id]];document.querySelectorAll('#dt'+id+' span').forEach((s,k)=>s.className='w-2 h-2 rounded-full '+(k===idx[id]?'bg-bo':'bg-white/80'))}
+
+function adminUI(){$('adminBar').classList.toggle('hidden',!S.admin);$('adminLink').textContent=S.admin?'🔓 Sair do modo lojista':'🔒 Área do lojista'}
+function adminToggle(){
+ if(S.admin){S.admin=false}else{const p=prompt('Digite a senha do lojista:');if(p===null)return;if(p!==PIN){alert('Senha incorreta.');return}S.admin=true;$('catalogo').scrollIntoView({behavior:'smooth'})}
+ adminUI();draw()}
+
+function slotsInit(){$('slots').innerHTML=[0,1,2].map(i=>`<div class="space-y-2"><img id="pv${i}" class="w-full aspect-square object-cover rounded-xl bg-slate-100 border"><label class="block text-center px-2 py-1.5 bg-sky-50 text-bbd rounded-lg text-[11px] font-bold cursor-pointer border border-sky-200">📷 Foto ${i+1}<input id="pf${i}" type="file" accept="image/*" class="hidden" onchange="fileImg(this,${i})"></label><input id="pu${i}" type="url" oninput="FI[${i}]=this.value.trim();pv(${i})" placeholder="ou link" class="w-full px-2 py-1.5 border border-slate-300 rounded-lg text-[11px]"></div>`).join('')}
+function pv(i){$('pv'+i).src=FI[i]||PH}
+function fileImg(inp,i){
+ const f=inp.files[0];if(!f)return;const r=new FileReader();
+ r.onload=e=>{const im=new Image();im.onload=()=>{const s=Math.min(1,600/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);FI[i]=c.toDataURL('image/jpeg',.75);$('pu'+i).value='';pv(i)};im.src=e.target.result};
+ r.readAsDataURL(f)}
+function openF(id=null,cat=null){
+ S.edit=id;const p=id?P.find(x=>x.id===id):null;
+ $('pt').textContent=p?'Editar produto':'Adicionar produto';
+ $('fn').value=p?p.name:'';$('fp').value=p?p.price:'';$('fo').value=p&&p.oldPrice?p.oldPrice:'';
+ $('fc').value=p?p.category:(cat||'tradicional');$('ft').value=p?(p.tag||''):'';$('fd').value=p?(p.desc||''):'';
+ FI=['','',''];if(p)imgsOf(p).slice(0,3).forEach((s,i)=>FI[i]=s);
+ for(let i=0;i<3;i++){$('pf'+i).value='';$('pu'+i).value=FI[i].startsWith('data:')?'':FI[i];pv(i)}
+ $('pm').classList.remove('hidden')}
+function closeF(){$('pm').classList.add('hidden')}
+function saveP(e){
+ e.preventDefault();const price=parseFloat($('fp').value),o=parseFloat($('fo').value),im=FI.filter(Boolean);
+ const d={name:$('fn').value.trim(),category:$('fc').value,price,oldPrice:isNaN(o)?null:o,tag:$('ft').value.trim(),desc:$('fd').value.trim(),images:im.length?im:[PH]};
+ if(!d.name||isNaN(price)){alert('Preencha nome e preço.');return}
+ if(S.edit){const i=P.findIndex(x=>x.id===S.edit);P[i]={...P[i],...d};cart=cart.map(c=>c.id===S.edit?{...c,...d}:c)}
+ else P.unshift({id:Date.now(),...d});
+ if(!save())return;closeF();cartUI();draw()}
+function delP(id){const p=P.find(x=>x.id===id);if(!p||!confirm('Excluir "'+p.name+'"?'))return;P=P.filter(x=>x.id!==id);cart=cart.filter(c=>c.id!==id);save();cartUI();draw()}
+function exportP(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(P)],{type:'application/json'}));a.download='produtos-letras-e-biblias.json';a.click()}
+function importP(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const a=JSON.parse(e.target.result);if(!Array.isArray(a)||!a.every(p=>p&&p.name&&!isNaN(+p.price)))throw 0;P=a.map((p,i)=>({id:p.id||Date.now()+i,category:'variedades',desc:'',tag:'',...p,price:+p.price}));save();draw();alert('Backup importado!')}catch(x){alert('Arquivo inválido.')}inp.value=''};r.readAsText(f)}
+function resetP(){if(!confirm('Voltar aos produtos originais?'))return;P=DEF.map(p=>({...p}));cart=[];save();cartUI();draw()}
+
+function add(id){const p=P.find(x=>x.id===id),c=cart.find(x=>x.id===id);c?c.q++:cart.push({id,name:p.name,price:p.price,img:imgsOf(p)[0],q:1});cartUI();$('cm').classList.remove('hidden')}
+function qty(id,d){const c=cart.find(x=>x.id===id);c.q+=d;if(c.q<1)cart=cart.filter(x=>x.id!==id);cartUI()}
+function cartUI(){
+ $('badge').textContent=cart.reduce((s,c)=>s+c.q,0);
+ $('ci').innerHTML=cart.length?cart.map(c=>`<div class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border"><img src="${esc(c.img)}" class="w-12 h-12 object-cover rounded-lg"><div class="flex-1"><p class="font-bold text-xs">${esc(c.name)}</p><p class="text-xs text-slate-500">${brl(c.price)}</p></div><div class="flex items-center gap-2 text-sm"><button onclick="qty(${c.id},-1)" class="w-6 h-6 bg-white border rounded">−</button><b>${c.q}</b><button onclick="qty(${c.id},1)" class="w-6 h-6 bg-white border rounded">+</button></div></div>`).join(''):'<p class="text-center text-slate-500 py-8">Carrinho vazio</p>';
+ $('ct').textContent=brl(cart.reduce((s,c)=>s+c.price*c.q,0))}
+function cartToggle(){$('cm').classList.toggle('hidden')}
+function checkout(){
+ if(!cart.length){alert('Carrinho vazio!');return}
+ let t="Olá! Gostaria de finalizar o pedido:\n\n";cart.forEach(i=>t+=`- ${i.q}x ${i.name} (${brl(i.price)})\n`);
+ t+=`\n*Total: ${brl(cart.reduce((s,c)=>s+c.price*c.q,0))}*`;
+ window.open('https://wa.me/5563992000251?text='+encodeURIComponent(t),'_blank')}
+
+slotsInit();chips();adminUI();draw();cartUI();
+</script>
+</body>
+</html>
